@@ -3,11 +3,6 @@ import { useForm } from 'react-hook-form'
 export default function App() {
 	const { register, handleSubmit } = useForm()
 
-	const handleOnSubmit = data => {
-		console.log(data)
-		// let rentalPrices = basePrice * data[termC]
-	}
-
 	const fuelPrice = 5.5
 	const basePrice = 1000
 	const location = ''
@@ -18,6 +13,10 @@ export default function App() {
 		Standard: 1.3,
 		Medium: 1.6,
 		Premium: 2,
+	}
+	const handleOnSubmit = data => {
+		console.log(data)
+		let rentalPrices = basePrice * data
 	}
 
 	return (
