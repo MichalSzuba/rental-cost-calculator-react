@@ -1,7 +1,7 @@
 import { useForm, useFormState } from 'react-hook-form'
 
 export default function App() {
-	const { register, handleSubmit, control } = useForm({
+	const { register, handleSubmit } = useForm({
 		defaultValues: {
 			distance: 1,
 		},
@@ -19,9 +19,7 @@ export default function App() {
 		Premium: 2,
 	}
 
-	const { daneFormurarza } = useFormState({
-		control,
-	})
+	
 	const handleOnSubmit = date => {
 		console.log(date)
 		console.log(daneFormurarza)
