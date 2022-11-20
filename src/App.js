@@ -1,7 +1,11 @@
-import { useForm } from 'react-hook-form'
+import { useForm, useFormState } from 'react-hook-form'
 
 export default function App() {
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit, control } = useForm({
+		defaultValues: {
+			distance: 1,
+		},
+	})
 
 	const fuelPrice = 5.5
 	const basePrice = 1000
@@ -14,9 +18,13 @@ export default function App() {
 		Medium: 1.6,
 		Premium: 2,
 	}
-	const handleOnSubmit = data => {
-		console.log(data)
-		let rentalPrices = basePrice * data
+
+	const { daneFormurarza } = useFormState({
+		control,
+	})
+	const handleOnSubmit = date => {
+		console.log(date)
+		console.log(daneFormurarza)
 	}
 
 	return (
@@ -43,13 +51,7 @@ export default function App() {
 				<input {...register('termCarRentalEnd')} type='date' />
 			</label>
 			<br />
-			<input
-				type='submit'
-				value='submit'
-				onClick={() => {
-					console.log('fuelPrice: ' + fuelPrice + '\npriceCategoryCar: ' + priceCategoryCar)
-				}}
-			/>
+			<input type='submit' value='submit' />
 		</form>
 	)
 }
