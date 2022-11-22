@@ -1,9 +1,13 @@
-import { useForm, useFormState } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import './App.css'
 
 export default function App() {
-	const { register, handleSubmit } = useForm({
+	const { register, handleSubmit, getValues } = useForm({
 		defaultValues: {
 			distance: 1,
+			termCarRentalBegin: new Date().toLocaleDateString(),
+			termCarRentalEnd: new Date().toLocaleDateString(),
+			yearDrivingLicense: 2000,
 		},
 	})
 
@@ -12,6 +16,7 @@ export default function App() {
 	const location = ''
 	const averageFuel = 8
 	const availableModels = 2
+	let totalRentalCost = 0
 	const priceCategoryCar = {
 		Basic: 1,
 		Standard: 1.3,
@@ -19,10 +24,10 @@ export default function App() {
 		Premium: 2,
 	}
 
-	
 	const handleOnSubmit = date => {
 		console.log(date)
-		console.log(daneFormurarza)
+		// totalRentalCost = basePrice * (getValues.termCarRentalEnd - getValues.termCarRentalBegin)
+		console.log(getValues.termCarRentalEnd - getValues.termCarRentalBegin)
 	}
 
 	return (
