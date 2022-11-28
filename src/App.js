@@ -1,6 +1,6 @@
 import './App.css'
-import CarRental from './Componets/CarRental'
+import CarRentalForm from './Componets/CarRentalForm'
 
 export default function App() {
-	return <CarRental />
+	return <CarRentalForm />
 }

@@ -3,36 +3,44 @@ import * as dayjs from 'dayjs'
 import RentalCalculator from './RentalCalculator'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import { DateRange } from 'react-date-range'
+import { DateRange, DateRangePicker } from 'react-date-range'
+// import { DateRangePicker } from 'rsuite'
 import { useState } from 'react'
+import './CarRentalForm.css'
 
-export default function CarRental() {
+export default function CarRentalForm() {
 	const { register, handleSubmit } = useForm({
 		defaultValues: {
 			distance: 1,
 			yearDrivingLicense: 2000,
+			timeRental: {
+				startDate: dayjs(new Date()).format('DD/MM/YYYY'),
+				endDate: null,
+				key: 'selection',
+			},
 		},
 	})
-	const toDay = dayjs.format('DD/MM/YYYY')
-	const [state, setState] = useState([
-		{
-			startDate: toDay,
-			endDate: null,
-			key: 'selection',
-		},
-	])
-	console.log(state.startDate)
+
+	const handleOnSubmit = data => {
+		console.log(data)
+		RentalCalculator(data)
+		console.log(data.timeRental.startDate, data.timeRental.endDate)
+	}
+
 	const priceCategoryCar = {
 		basic: 1,
 		standard: 1.3,
 		medium: 1.6,
 		premium: 2,
 	}
-	const handleOnSubmit = data => {
-		// console.log(data, state)
-		RentalCalculator(data.distance, data.yearDrivingLicense, state.startDate, state.endDate, data.priceCategoryCar)
-	}
 
+	const [state, setState] = useState([
+		{
+			startDate: new Date(),
+			endDate: null,
+			key: 'selection',
+		},
+	])
 	return (
 		<form onSubmit={handleSubmit(handleOnSubmit)}>
 			<label>
@@ -49,18 +57,18 @@ export default function CarRental() {
 			<br />
 			<label>
 				Termin wypożyczenia samochodu
-				{/* <br />
-				Od:
+				<br />
+				{/* Od:
 				<input {...register('termCarRentalBegin')} type='date' />
 				<br />
 				do:
 				<input {...register('termCarRentalEnd')} type='date' /> */}
 				<DateRange
+					{...register('timeRental')}
 					editableDateInputs={true}
 					onChange={item => setState([item.selection])}
 					moveRangeOnFirstSelection={false}
 					ranges={state}
-					// {...register('rentalDays')}
 				/>
 			</label>
 			<br />
